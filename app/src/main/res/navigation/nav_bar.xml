@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_bar"
+    app:startDestination="@id/ligasFragment">
+
+    <fragment
+        android:id="@+id/ligasFragment"
+        android:name="com.example.iot_lab4_20213852.Ligas.LigasFragment"
+        android:label="fragment_ligas"
+        />
+    <fragment
+        android:id="@+id/posicionesFragment"
+        android:name="com.example.iot_lab4_20213852.Posiciones.PosicionesFragment"
+        android:label="fragment_posiciones"
+        />
+    <fragment
+        android:id="@+id/resultadosFragment"
+        android:name="com.example.iot_lab4_20213852.Resultados.ResultadosFragment"
+        android:label="fragment_resultados"
+        />
+</navigation>
