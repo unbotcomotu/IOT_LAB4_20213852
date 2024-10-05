@@ -31,7 +31,6 @@
             <LinearLayout
                 android:layout_width="80dp"
                 android:layout_height="50dp"
-                android:layout_marginHorizontal="2dp"
                 android:background="@drawable/fondosearchchiquite"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -49,7 +48,6 @@
             <LinearLayout
                 android:layout_width="120dp"
                 android:layout_height="50dp"
-                android:layout_marginHorizontal="2dp"
                 android:background="@drawable/fondosearchchiquite"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -67,7 +65,6 @@
             <LinearLayout
                 android:layout_width="80dp"
                 android:layout_height="50dp"
-                android:layout_marginHorizontal="2dp"
                 android:background="@drawable/fondosearchchiquite"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">

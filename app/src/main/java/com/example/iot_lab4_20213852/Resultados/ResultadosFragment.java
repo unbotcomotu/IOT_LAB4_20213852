@@ -60,7 +60,7 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         b=FragmentResultadosBinding.inflate(inflater,container,false);
-        vm=new ViewModelProvider(this).get(DataViewModel.class);
+        vm=new ViewModelProvider(requireActivity()).get(DataViewModel.class);
         if(vm.getEventos().getValue()==null){
             eventos=new ArrayList<>();
             contador=0;

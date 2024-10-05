@@ -26,29 +26,25 @@ public class ApplicationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_application);
         b=ActivityApplicationBinding.inflate(getLayoutInflater());
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.fragmentContainerView);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavController navController = navHostFragment.getNavController();
-
-        NavigationUI.setupWithNavController(b.bottomNavigationView, navController);
-        NavOptions navOptions = new NavOptions.Builder()
-                .setPopUpTo(R.id.ligasFragment, true)
-                .build();
-        b.bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-
-
+        //Esta configuración de NavOptions se realizó con ayuda de un LLM
+        NavOptions.Builder navOptionsBuilder = new NavOptions.Builder()
+                .setLaunchSingleTop(true)
+                .setPopUpTo(R.id.nav_bar, false);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.ligasFragment) {
-                navController.navigate(R.id.ligasFragment, null, navOptions);
+                navController.navigate(R.id.ligasFragment, null, navOptionsBuilder.build());
                 return true;
             } else if (item.getItemId() == R.id.posicionesFragment) {
-                navController.navigate(R.id.posicionesFragment, null, navOptions);
+                navController.navigate(R.id.posicionesFragment, null, navOptionsBuilder.build());
                 return true;
             } else if (item.getItemId() == R.id.resultadosFragment) {
-                navController.navigate(R.id.resultadosFragment, null, navOptions);
+                navController.navigate(R.id.resultadosFragment, null, navOptionsBuilder.build());
                 return true;
             }
             return false;
         });
-
     }
 }

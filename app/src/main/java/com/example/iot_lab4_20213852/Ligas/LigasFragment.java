@@ -46,7 +46,7 @@ public class LigasFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         b= FragmentLigasBinding.inflate(inflater,container,false);
-        vm=new ViewModelProvider(this).get(DataViewModel.class);
+        vm=new ViewModelProvider(requireActivity()).get(DataViewModel.class);
         if(vm.getLigas().getValue()==null){
             ligas=new ArrayList<>();
             vm.getLigas().setValue(ligas);

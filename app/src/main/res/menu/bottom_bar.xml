@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/ligasFragment"
-        android:title="dasdas"
-        app:showAsAction="ifRoom"/>
+        android:title="Ligas"
+        />
     <item
         android:id="@+id/posicionesFragment"
-        android:title="dasdasd"
-        app:showAsAction="ifRoom"/>
+        android:title="Posiciones"
+        />
     <item
         android:id="@+id/resultadosFragment"
-        android:title="fsadfasdf"
-        app:showAsAction="ifRoom"/>
+        android:title="Resultados"
+        />
 </menu>

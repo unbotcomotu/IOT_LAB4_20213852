@@ -50,7 +50,7 @@ public class PosicionesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         b= FragmentPosicionesBinding.inflate(inflater,container,false);
-        vm=new ViewModelProvider(this).get(DataViewModel.class);
+        vm=new ViewModelProvider(requireActivity()).get(DataViewModel.class);
         if(vm.getEquipos().getValue()==null){
             equipos=new ArrayList<>();
             vm.getEquipos().setValue(equipos);

@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void lanzarDialogNoInternet(){
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
-        dialogBuilder.setTitle("Aceptar solicitud de registro")
-                .setMessage("¿Está seguro de aceptar al repartidor?")
+        dialogBuilder.setTitle("No hay conexión a Internet")
+                .setMessage("¿Desea ingresar a su configuración?")
                 .setPositiveButton("Configuración", (dialog, which) -> {
                     Intent intent= new Intent(Settings.ACTION_SETTINGS);
                     startActivity(intent);
