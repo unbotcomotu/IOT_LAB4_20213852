@@ -253,7 +253,7 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
         String ano1Str=anos[0];
         String ano2Str=anos[1];
 
-        return verificarNumeroValido(ano1Str)&&verificarNumeroValido(ano2Str)&&(Integer.parseInt(ano2Str)-Integer.parseInt(ano1Str)==1);
+        return verificarNumeroValido(ano1Str)&&verificarNumeroValido(ano2Str)&&(Integer.parseInt(ano2Str)-Integer.parseInt(ano1Str)==1)&&Integer.parseInt(ano1Str)>1999&&Integer.parseInt(ano2Str)>2000;
     }
 
     private void lanzarDialog(Integer tipo){
