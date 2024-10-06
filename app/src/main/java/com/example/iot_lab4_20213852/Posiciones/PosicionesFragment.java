@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.iot_lab4_20213852.Interfaces.TheSportsDBService;
 import com.example.iot_lab4_20213852.Ligas.RecyclerViewLigasAdapter;
@@ -70,19 +71,19 @@ public class PosicionesFragment extends Fragment {
                 if(verificarNumeroValido(idLiga)&&verificarTemporadaValida(temporada)){
                     listarPosiciones(idLiga,temporada);
                 }else if(!verificarNumeroValido(idLiga)&&!verificarTemporadaValida(temporada)){
-                    lanzarDialog(5);
+                    lanzarToast(5);
                 }else if(!verificarNumeroValido(idLiga)){
-                    lanzarDialog(1);
+                    lanzarToast(1);
                 }else if(!verificarTemporadaValida(temporada)){
-                    lanzarDialog(3);
+                    lanzarToast(3);
                 }
 
             }else if(!idLigaIngresada&&!temporadaIngresada){
-                lanzarDialog(10);
+                lanzarToast(10);
             }else if(!idLigaIngresada){
-                lanzarDialog(11);
+                lanzarToast(11);
             }else {
-                lanzarDialog(12);
+                lanzarToast(12);
             }
         });
 
@@ -126,7 +127,7 @@ public class PosicionesFragment extends Fragment {
                     }
                 }
                 if(!idExiste){
-                    lanzarDialog(2);
+                    lanzarToast(2);
                 }else {
                     service.listarTemporadasPorIdLiga(idLiga).enqueue(new Callback<Temporadas>() {
                         @Override
@@ -139,9 +140,9 @@ public class PosicionesFragment extends Fragment {
                                 }
                             }
                             if(!temporadaExiste){
-                                lanzarDialog(4);
+                                lanzarToast(4);
                             }else {
-                                lanzarDialog(0);
+                                lanzarToast(0);
                             }
                         }
                         @Override
@@ -176,92 +177,37 @@ public class PosicionesFragment extends Fragment {
         return verificarNumeroValido(ano1Str)&&verificarNumeroValido(ano2Str)&&(Integer.parseInt(ano2Str)-Integer.parseInt(ano1Str)==1)&&Integer.parseInt(ano1Str)>1999&&Integer.parseInt(ano2Str)>2000;
     }
 
-    private void lanzarDialog(Integer tipo){
-        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(getContext());
-
+    private void lanzarToast(Integer tipo){
         switch (tipo){
             case 0:
-                dialogBuilder.setTitle("No se encontraron resultados")
-                        .setMessage("No se encontraron resultados para los parámetros ingresados")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"No se encontraron resultados para los parámetros ingresados",Toast.LENGTH_LONG).show();
                 break;
             case 1:
-                dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese un parámetro de ID numérico")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"Ingrese un ID numérico",Toast.LENGTH_LONG).show();
                 break;
             case 2:
-                dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese un parámetro de ID que exista dentro de una liga")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"Ingrese un ID que exista dentro de una liga",Toast.LENGTH_LONG).show();
                 break;
             case 3:
-                dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese un parámetro de temporada correcto. Este tiene que tener el formato \"<año>-<siguiente_año>\"")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"Ingrese una temporada correcta (\"<año>-<siguiente_año>\")",Toast.LENGTH_LONG).show();
                 break;
             case 4:
-                dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese una temporada que exista para el valor de id de liga ingresado")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"Ingrese una temporada que exista para el valor de id de liga ingresado",Toast.LENGTH_LONG).show();
                 break;
             case 5:
-                dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese un parámetro de ID numérico y un parámetro de temporada correcto. Este último tiene que tener el formato \"<año>-<siguiente_año>\"")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"Ingrese un ID numérico y una temporada correcta (\"<año>-<siguiente_año>\")",Toast.LENGTH_LONG).show();
                 break;
             case 10:
-                dialogBuilder.setTitle("Parámetros vacíos")
-                        .setMessage("Ingrese un id de liga y una temporada")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"Ingrese un id de liga y una temporada",Toast.LENGTH_LONG).show();
                 break;
             case 11:
-                dialogBuilder.setTitle("Parámetros vacíos")
-                        .setMessage("Ingrese un id de liga")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"Ingrese un id de liga",Toast.LENGTH_LONG).show();
                 break;
             case 12:
-                dialogBuilder.setTitle("Parámetros vacíos")
-                        .setMessage("Ingrese una temporada")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"Ingrese una temporada",Toast.LENGTH_LONG).show();
                 break;
             default:
-                dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Inténtelo más tarde")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setNegativeButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
-                break;
+                Toast.makeText(getContext(),"Error al realizar la búsqueda",Toast.LENGTH_LONG).show();
         }
     }
 

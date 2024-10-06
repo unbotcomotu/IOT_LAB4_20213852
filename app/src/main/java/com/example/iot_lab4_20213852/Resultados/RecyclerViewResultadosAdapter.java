@@ -43,7 +43,7 @@ public class RecyclerViewResultadosAdapter extends RecyclerView.Adapter<Recycler
         holder.nombre.setText(evento.getStrEvent());
         holder.fechaCantidadEspectadores.setText("Fecha: "+evento.getDateEvent()+", #espectadores: "+evento.getIntSpectators());
         holder.equipos.setText("Equipos: Local->"+evento.getStrHomeTeam()+", Visitante->"+evento.getStrAwayTeam());
-        holder.resultado.setText("Ganador: "+(evento.getIntHomeScore()>evento.getIntAwayScore()?evento.getStrHomeTeam(): evento.getIntAwayScore()== evento.getIntAwayScore()?"Empate":evento.getStrAwayTeam()));
+        holder.resultado.setText("Ganador: "+(evento.getIntHomeScore()>evento.getIntAwayScore()?evento.getStrHomeTeam(): evento.getIntAwayScore()== evento.getIntAwayScore()?"Empate":evento.getStrAwayTeam())+" ("+evento.getIntHomeScore()+"-"+evento.getIntAwayScore()+")");
         holder.ronda.setText("Ronda: "+evento.getIntRound());
     }
 

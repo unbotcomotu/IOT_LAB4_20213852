@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.iot_lab4_20213852.Interfaces.TheSportsDBService;
 import com.example.iot_lab4_20213852.Objetos.Equipo;
@@ -84,40 +85,35 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
                 String ronda=b.inputRonda.getText().toString();
                 if(verificarNumeroValido(idLiga)&&verificarTemporadaValida(temporada)&&verificarNumeroValido(ronda)){
                     listarResultados(idLiga,temporada,ronda);
-                }else if(!dialogAbierto){
-                    if(!verificarNumeroValido(idLiga)&&!verificarTemporadaValida(temporada)&&!verificarNumeroValido(ronda)){
-                        lanzarDialog(5);
-                    }else if(!verificarNumeroValido(ronda)&&!verificarTemporadaValida(temporada)){
-                        lanzarDialog(6);
-                    }else if(!verificarNumeroValido(ronda)&&!verificarNumeroValido(idLiga)){
-                        lanzarDialog(7);
-                    }else if(!verificarNumeroValido(idLiga)&&!verificarTemporadaValida(temporada)){
-                        lanzarDialog(9);
-                    }else if(!verificarNumeroValido(ronda)){
-                        lanzarDialog(8);
-                    }else if(!verificarNumeroValido(idLiga)){
-                        lanzarDialog(1);
-                    }else if(!verificarTemporadaValida(temporada)){
-                        lanzarDialog(3);
-                    }
+                }else if(!verificarNumeroValido(idLiga)&&!verificarTemporadaValida(temporada)&&!verificarNumeroValido(ronda)){
+                    lanzarToast(5);
+                }else if(!verificarNumeroValido(ronda)&&!verificarTemporadaValida(temporada)){
+                    lanzarToast(6);
+                }else if(!verificarNumeroValido(ronda)&&!verificarNumeroValido(idLiga)){
+                    lanzarToast(7);
+                }else if(!verificarNumeroValido(idLiga)&&!verificarTemporadaValida(temporada)){
+                    lanzarToast(9);
+                }else if(!verificarNumeroValido(ronda)){
+                    lanzarToast(8);
+                }else if(!verificarNumeroValido(idLiga)){
+                    lanzarToast(1);
+                }else if(!verificarTemporadaValida(temporada)){
+                    lanzarToast(3);
                 }
-
-            }else if(!dialogAbierto){
-                if(!idLigaIngresada&&!temporadaIngresada&&!rondaIngresada){
-                    lanzarDialog(16);
-                }else if(!idLigaIngresada&&!rondaIngresada){
-                    lanzarDialog(14);
-                }else if(!rondaIngresada&&!temporadaIngresada){
-                    lanzarDialog(15);
-                }else if(!idLigaIngresada&&!temporadaIngresada){
-                    lanzarDialog(10);
-                }else if(!idLigaIngresada){
-                    lanzarDialog(11);
-                }else if(!temporadaIngresada){
-                    lanzarDialog(12);
-                }else {
-                    lanzarDialog(13);
-                }
+            }else if(!idLigaIngresada&&!temporadaIngresada&&!rondaIngresada){
+                lanzarToast(16);
+            }else if(!idLigaIngresada&&!rondaIngresada){
+                lanzarToast(14);
+            }else if(!rondaIngresada&&!temporadaIngresada){
+                lanzarToast(15);
+            }else if(!idLigaIngresada&&!temporadaIngresada){
+                lanzarToast(10);
+            }else if(!idLigaIngresada){
+                lanzarToast(11);
+            }else if(!temporadaIngresada){
+                lanzarToast(12);
+            }else {
+                lanzarToast(13);
             }
         });
         if(getContext()!=null){
@@ -201,7 +197,7 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
                 }
                 if(!idExiste){
                     if(!dialogAbierto){
-                        lanzarDialog(2);
+                        lanzarToast(2);
                     }
                 }else {
                     service.listarTemporadasPorIdLiga(idLiga).enqueue(new Callback<Temporadas>() {
@@ -216,11 +212,11 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
                             }
                             if(!temporadaExiste){
                                 if(!dialogAbierto){
-                                    lanzarDialog(4);
+                                    lanzarToast(4);
                                 }
                             }else {
                                 if(!dialogAbierto){
-                                    lanzarDialog(0);
+                                    lanzarToast(0);
                                 }
                             }
                         }
@@ -271,7 +267,7 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
                 break;
             case 1:
                 dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese un parámetro de ID numérico")
+                        .setMessage("Ingrese un ID numérico")
                         .setPositiveButton("Entendido", (dialog, which) -> {
                             dialogAbierto=false;
                         })
@@ -280,7 +276,7 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
                 break;
             case 2:
                 dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese un parámetro de ID que exista dentro de una liga")
+                        .setMessage("Ingrese un ID que exista dentro de una liga")
                         .setPositiveButton("Entendido", (dialog, which) -> {
                             dialogAbierto=false;
                         })
@@ -289,7 +285,7 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
                 break;
             case 3:
                 dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese un parámetro de temporada correcto. Este tiene que tener el formato \"<año>-<siguiente_año>\"")
+                        .setMessage("Ingrese una temporada correcta (\"<año>-<siguiente_año>\").")
                         .setPositiveButton("Entendido", (dialog, which) -> {
                             dialogAbierto=false;
                         })
@@ -307,7 +303,7 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
                 break;
             case 5:
                 dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese un parámetro de ID numérico, un parámetro de ronda numérico y un parámetro de temporada correcto. Este último tiene que tener el formato \"<año>-<siguiente_año>\"")
+                        .setMessage("Ingrese un ID numérico, una ronda numérica y una temporada correcta (\"<año>-<siguiente_año>\")")
                         .setPositiveButton("Entendido", (dialog, which) -> {
                             dialogAbierto=false;
                         })
@@ -316,7 +312,7 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
                 break;
             case 6:
                 dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese un parámetro de ronda numérico y un parámetro de temporada correcto. Este último tiene que tener el formato \"<año>-<siguiente_año>\"")
+                        .setMessage("Ingrese una ronda numérica y una temporada correcta (\"<año>-<siguiente_año>\")")
                         .setPositiveButton("Entendido", (dialog, which) -> {
                             dialogAbierto=false;
                         })
@@ -325,7 +321,7 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
                 break;
             case 7:
                 dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese un parámetro de ID numérico y un parámetro de ronda numérico")
+                        .setMessage("Ingrese un ID numérico y una ronda numérica")
                         .setPositiveButton("Entendido", (dialog, which) -> {
                             dialogAbierto=false;
                         })
@@ -334,7 +330,7 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
                 break;
             case 8:
                 dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese un parámetro de ronda numérico")
+                        .setMessage("Ingrese una ronda numérica")
                         .setPositiveButton("Entendido", (dialog, which) -> {
                             dialogAbierto=false;
                         })
@@ -343,7 +339,7 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
                 break;
             case 9:
                 dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Ingrese un parámetro de ID numérico y un parámetro de temporada correcto. Este último tiene que tener el formato \"<año>-<siguiente_año>\"")
+                        .setMessage("Ingrese un ID numérico y una temporada correcta (\"<año>-<siguiente_año>\")")
                         .setPositiveButton("Entendido", (dialog, which) -> {
                             dialogAbierto=false;
                         })
@@ -469,6 +465,69 @@ public class ResultadosFragment extends Fragment implements SensorEventListener 
             }
             vm.getEventos().setValue(eventos);
             adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void lanzarToast(Integer tipo){
+
+        switch (tipo){
+            case 0:
+                Toast.makeText(getContext(),"Ingrese una ronda que exista para la temporada y el id de liga ingresado",Toast.LENGTH_LONG).show();
+                break;
+            case 1:
+                Toast.makeText(getContext(),"Ingrese un ID numérico",Toast.LENGTH_LONG).show();
+                break;
+            case 2:
+                Toast.makeText(getContext(),"Ingrese un ID que exista dentro de una liga",Toast.LENGTH_LONG).show();
+                                break;
+            case 3:
+                Toast.makeText(getContext(),"Ingrese una temporada correcta (\"<año>-<siguiente_año>\")",Toast.LENGTH_LONG).show();
+                break;
+            case 4:
+                Toast.makeText(getContext(),"Ingrese una temporada que exista para el valor de id de liga ingresado",Toast.LENGTH_LONG).show();
+                break;
+            case 5:
+                Toast.makeText(getContext(),"Ingrese un ID numérico, una ronda numérica y una temporada correcta (\"<año>-<siguiente_año>\")",Toast.LENGTH_LONG).show();
+                break;
+            case 6:
+                Toast.makeText(getContext(),"Ingrese una ronda numérica y una temporada correcta (\"<año>-<siguiente_año>\")",Toast.LENGTH_LONG).show();
+                break;
+            case 7:
+                Toast.makeText(getContext(),"Ingrese un ID numérico y una ronda numérica",Toast.LENGTH_LONG).show();
+                break;
+            case 8:
+                Toast.makeText(getContext(),"Ingrese una ronda numérica",Toast.LENGTH_LONG).show();
+                break;
+            case 9:
+                Toast.makeText(getContext(),"Ingrese un ID numérico y una temporada correcta (\"<año>-<siguiente_año>\")",Toast.LENGTH_LONG).show();
+                break;
+            case 10:
+                Toast.makeText(getContext(),"Ingrese un id de liga y una temporada",Toast.LENGTH_LONG).show();
+                break;
+            case 11:
+                Toast.makeText(getContext(),"Ingrese un id de liga",Toast.LENGTH_LONG).show();
+                break;
+            case 12:
+                Toast.makeText(getContext(),"Ingrese una temporada",Toast.LENGTH_LONG).show();
+                break;
+            case 13:
+                Toast.makeText(getContext(),"Ingrese una ronda",Toast.LENGTH_LONG).show();
+                break;
+            case 14:
+                Toast.makeText(getContext(),"Ingrese un id de liga y una ronda",Toast.LENGTH_LONG).show();
+                break;
+            case 15:
+                Toast.makeText(getContext(),"Ingrese una ronda y una temporada",Toast.LENGTH_LONG).show();
+                break;
+            case 16:
+                Toast.makeText(getContext(),"Ingrese un id de liga, una ronda y una temporada",Toast.LENGTH_LONG).show();
+                break;
+            case 18:
+                Toast.makeText(getContext(),"Ingrese un id de liga, una ronda y una temporada",Toast.LENGTH_LONG).show();
+                break;
+            default:
+                Toast.makeText(getContext(),"Error al realizar la búsqueda",Toast.LENGTH_LONG).show();
+                break;
         }
     }
 

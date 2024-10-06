@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.iot_lab4_20213852.Interfaces.TheSportsDBService;
 import com.example.iot_lab4_20213852.Objetos.Liga;
@@ -80,16 +81,16 @@ public class LigasFragment extends Fragment {
                         vm.getLigas().setValue(ligas);
                         adapter.notifyDataSetChanged();
                     }else {
-                        lanzarDialog(2);
+                        lanzarToast(2);
                     }
                 }else{
-                    lanzarDialog(1);
+                    lanzarToast(1);
                 }
             }
             @Override
             public void onFailure(Call<Ligas> call, Throwable t) {
                 Log.d("aiudaaa",t.getMessage());
-                lanzarDialog(1);
+                lanzarToast(1);
             }
         });
     }
@@ -104,62 +105,39 @@ public class LigasFragment extends Fragment {
                         ligas.addAll(response.body().getCountries());
                         adapter.notifyDataSetChanged();
                     }else {
-                        lanzarDialog(0);
+                        lanzarToast(0);
                     }
                 }else if(response.code()==400){
-                    lanzarDialog(0);
+                    lanzarToast(0);
                 }else {
-                    lanzarDialog(1);
+                    lanzarToast(1);
                 }
             }
             @Override
             public void onFailure(Call<Ligas> call, Throwable t) {
                 Log.d("aiudaaa",t.getMessage());
-                lanzarDialog(1);
+                lanzarToast(1);
             }
         });
     }
 
-    private void lanzarDialog(Integer tipo){
+    private void lanzarToast(Integer tipo){
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(getContext());
 
         switch (tipo){
             case 0:
-                dialogBuilder.setTitle("País no existente")
-                        .setMessage("El país ingresado como parámetro no produjo coincidencias en la búsqueda")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"El país ingresado como parámetro no produjo coincidencias en la búsqueda",Toast.LENGTH_LONG).show();
                 break;
             case 1:
-                dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Inténtelo más tarde")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"Error al realizar la búsqueda",Toast.LENGTH_LONG).show();
                 break;
             case 2:
-                dialogBuilder.setTitle("No hay resultados")
-                        .setMessage("No se encontró ningún resultado")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"No se encontró ningún resultado",Toast.LENGTH_LONG).show();
                 break;
             case 3:
             case 4:
             default:
-                dialogBuilder.setTitle("Error al realizar la búsqueda")
-                        .setMessage("Inténtelo más tarde")
-                        .setPositiveButton("Entendido", (dialog, which) -> {
-                        })
-                        .setNegativeButton("Entendido", (dialog, which) -> {
-                        })
-                        .setIcon(R.drawable.iconwarning)
-                        .show();
+                Toast.makeText(getContext(),"Error al realizar la búsqueda",Toast.LENGTH_LONG).show();
                 break;
 
         }
